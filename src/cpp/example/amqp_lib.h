@@ -10,52 +10,52 @@ enum consumedMsgAction {
   REJECT,
 };
 
-typedef void (*consumer_callback_function)(const AMQP::Message &message, uint64_t deliveryTag,
-                     bool redelivered);
+typedef void (*consumer_callback_function)(const AMQP::Message &message,
+                                           uint64_t deliveryTag,
+                                           bool redelivered);
 
 typedef struct amqpInstance {
-    AMQP::TcpConnection *connection;
-    AMQP::TcpChannel *channel;
-    AMQP::LibEvHandler *handler;
+  AMQP::TcpConnection *connection;
+  AMQP::TcpChannel *channel;
+  AMQP::LibEvHandler *handler;
 } amqp_instance;
 class AmqpWrapper {
-    private:
-    AMQP::TcpConnection *connection;
-    AMQP::TcpChannel *channel;
-    AMQP::LibEvHandler *handler;
-    std::string queue_name;
-    AMQP::TcpConnection* get_connection_instance(AMQP::LibEvHandler *handler);
-    AMQP::TcpChannel* get_channel_instance(AMQP::LibEvHandler *handler);
-    public:
-    AmqpWrapper() {
+private:
+  AMQP::TcpConnection *connection;
+  AMQP::TcpChannel *channel;
+  AMQP::LibEvHandler *handler;
+  std::string queue_name;
+  AMQP::TcpConnection *get_connection_instance(AMQP::LibEvHandler *handler);
+  AMQP::TcpChannel *get_channel_instance(AMQP::LibEvHandler *handler);
 
-    }
-    AmqpWrapper(AMQP::LibEvHandler *handler, std::string url):handler(handler){
-        std::string full_url = AMQP_PREFIX + url;
-        connection = new AMQP::TcpConnection(handler, AMQP::Address(AMQP_PREFIX+url));
-        channel = new AMQP::TcpChannel(connection);
-        
-    }
-    AmqpWrapper(AMQP::LibEvHandler *handler, std::string url, uint64_t instances):handler(handler){
-        std::string full_url = AMQP_PREFIX + url;
-        connection = new AMQP::TcpConnection(handler, AMQP::Address(AMQP_PREFIX+url));
-        channel = new AMQP::TcpChannel(connection);
-        
-    }
-    
-    void create_queue(std::string queue);
+public:
+  AmqpWrapper() {}
+  AmqpWrapper(AMQP::LibEvHandler *handler, std::string url) : handler(handler) {
+    std::string full_url = AMQP_PREFIX + url;
+    connection =
+        new AMQP::TcpConnection(handler, AMQP::Address(AMQP_PREFIX + url));
+    channel = new AMQP::TcpChannel(connection);
+  }
+  AmqpWrapper(AMQP::LibEvHandler *handler, std::string url, uint64_t instances)
+      : handler(handler) {
+    std::string full_url = AMQP_PREFIX + url;
+    connection =
+        new AMQP::TcpConnection(handler, AMQP::Address(AMQP_PREFIX + url));
+    channel = new AMQP::TcpChannel(connection);
+  }
 
-    void send_message(std::string msg);
+  void create_queue(std::string queue);
 
-    void consume_message();
-    void consume_message(consumer_callback_function cf);
-    void consume_message(enum consumedMsgAction);
+  void send_message(std::string msg);
 
-    static AmqpWrapper *instance;
+  void consume_message();
+  void consume_message(consumer_callback_function cf);
+  void consume_message(enum consumedMsgAction);
 
-    static void queueCreationSuccessCallback();
-    static void queueCreationFailCallback(const char *message);
-    static void DumpMessage(const AMQP::Message &message, uint64_t deliveryTag, bool redelivered);
+  static AmqpWrapper *instance;
 
-
+  static void queueCreationSuccessCallback();
+  static void queueCreationFailCallback(const char *message);
+  static void DumpMessage(const AMQP::Message &message, uint64_t deliveryTag,
+                          bool redelivered);
 };
