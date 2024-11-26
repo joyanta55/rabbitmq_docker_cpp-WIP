@@ -40,4 +40,6 @@ Redelivered: 0
 Routing Key: test_queue1
 Exchange: Default Exchange
 ```
-**src/cpp/example/app.cpp** is a placeholder which currently holds the minimal implementation. The ip and user you see in this example is the IP and USER of my rabbitmq server. To install rabbitmq server on debian follow here (https://www.rabbitmq.com/docs/install-debian). Visit AMQP page (https://github.com/CopernicaMarketingSoftware/AMQP-CPP) for more advanced coding experience. Required Bazel rules are already in place to solve all the header and library dependencies. Al it needs is to populate the **app.cpp** with your own logic and do `bazel run` to create and load the docker image.
+**src/cpp/example/app.cpp** serves as a placeholder with minimal implementation. The IP and user in this example correspond to my RabbitMQ server configuration. To set up a RabbitMQ server on Debian, refer to the official installation guide. For more advanced usage, visit the AMQP-CPP documentation (https://github.com/CopernicaMarketingSoftware/AMQP-CPP).
+
+The necessary Bazel rules are already configured to handle all header and library dependencies. Simply update **app.cpp** with your custom logic and run `bazel run` to build and load the Docker image.
