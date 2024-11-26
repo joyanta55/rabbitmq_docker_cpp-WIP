@@ -12,7 +12,7 @@ This would create a docker image, so you can see that by the `docker images` com
 ```
 bazel run //src/cpp:amqp_image_centos_cpp
 ```
-The centos version used is 6.6. Again this can be changes at `WORKSPACE` file.
+The centos version used is 6.6. Again this can be changed at `WORKSPACE` file.
 
 To see the created images
 ```
