@@ -8,7 +8,7 @@ All it needs to run is to run the following command
 bazel run //src/cpp:amqp_image_ubuntu_cpp
 ```
 
-This would create a docker image, so you can see that by the command. For the base docker image, I choose ubuntu 20.04. This can be modified at the `WORKSPACE` file. To create centos based amqp docker image  
+This would create a docker image, so you can see that by the `docker images` command. For the base docker image, I choose ubuntu 20.04. This can be modified at the `WORKSPACE` file. To create centos based amqp docker image  
 ```
 bazel run //src/cpp:amqp_image_centos_cpp
 ```
