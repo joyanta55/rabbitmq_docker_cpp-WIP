@@ -1,6 +1,5 @@
 load("@bazel_tools//tools/build_defs/repo:http.bzl", "http_archive")
 
-
 http_archive(
     name = "rules_foreign_cc",
     sha256 = "a2e6fb56e649c1ee79703e99aa0c9d13c6cc53c8d7a0cbb8797ab2888bbc99a3",
@@ -20,12 +19,11 @@ bazel_features_deps()
 
 http_archive(
     name = "libamq",
-    urls = ["https://github.com/CopernicaMarketingSoftware/AMQP-CPP/archive/refs/tags/v4.1.3.zip"],
+    build_file = "@//:libamq.BUILD",
     sha256 = "3b3e1163505a288d28b554c0533b59bc2e02a7d516a50477034c150ecd0121a2",
     strip_prefix = "AMQP-CPP-4.1.3",
-    build_file = "@//:libamq.BUILD",
+    urls = ["https://github.com/CopernicaMarketingSoftware/AMQP-CPP/archive/refs/tags/v4.1.3.zip"],
 )
-
 
 http_archive(
     name = "io_bazel_rules_docker",
@@ -40,11 +38,13 @@ http_archive(
 # docker_toolchain_configure with a custom attr; please read the toolchains
 # docs in /toolchains/docker/ before blindly adding this to your WORKSPACE.
 # BEGIN OPTIONAL segment:
-load("@io_bazel_rules_docker//toolchains/docker:toolchain.bzl",
-    docker_toolchain_configure="toolchain_configure"
+load(
+    "@io_bazel_rules_docker//toolchains/docker:toolchain.bzl",
+    docker_toolchain_configure = "toolchain_configure",
 )
+
 docker_toolchain_configure(
-  name = "docker_config",
+    name = "docker_config",
 )
 # End of OPTIONAL segment.
 
@@ -66,8 +66,8 @@ http_archive(
     ],
 )
 
-load("@io_bazel_rules_go//go:deps.bzl", "go_register_toolchains", "go_rules_dependencies")
 load("@bazel_gazelle//:deps.bzl", "gazelle_dependencies")
+load("@io_bazel_rules_go//go:deps.bzl", "go_register_toolchains", "go_rules_dependencies")
 
 go_rules_dependencies()
 
@@ -79,6 +79,7 @@ load(
     "@io_bazel_rules_docker//repositories:repositories.bzl",
     container_repositories = "repositories",
 )
+
 container_repositories()
 
 load("@io_bazel_rules_docker//repositories:deps.bzl", container_deps = "deps")
@@ -86,6 +87,7 @@ load("@io_bazel_rules_docker//repositories:deps.bzl", container_deps = "deps")
 container_deps()
 
 load("@io_bazel_rules_docker//container:container.bzl", "container_pull")
+
 container_pull(
     name = "ubuntu_base_image",
     registry = "docker.io",
@@ -99,7 +101,3 @@ container_pull(
     repository = "library/centos",
     tag = "6.6",  # Use your desired version
 )
-
-
-
-
