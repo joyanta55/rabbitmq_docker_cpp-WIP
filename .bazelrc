@@ -1,0 +1,3 @@
+build --@io_bazel_rules_docker//transitions:enable=false
+test --@io_bazel_rules_docker//transitions:enable=false
+run --@io_bazel_rules_docker//transitions:enable=false
