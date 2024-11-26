@@ -40,4 +40,4 @@ Redelivered: 0
 Routing Key: test_queue1
 Exchange: Default Exchange
 ```
-**src/cpp/example/app.cpp** is a placeholder. The ip and user you see in this example is the IP and USER of my rabbitmq server.
+**src/cpp/example/app.cpp** is a placeholder. The ip and user you see in this example is the IP and USER of my rabbitmq server. To install rabbitmq server on debian follow here (https://www.rabbitmq.com/docs/install-debian).
