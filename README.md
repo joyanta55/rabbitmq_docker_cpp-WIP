@@ -1,2 +1,2 @@
 # rabbitmq_docker_cpp
-A template for Bazel rules to export CPP AMQP (https://github.com/CopernicaMarketingSoftware/AMQP-CPP) as docker images
+A Bazel template to create Docker images for C++ applications using AMQP-CPP (https://github.com/CopernicaMarketingSoftware/AMQP-CPP). The `src/cpp/example` directory includes a sample file, `app.cpp`, which is built and packaged into a Docker container for the local Docker registry. This setup is dependency-free — all required headers and AMQP-CPP implementations can be handled directly in the `app.cpp` file.
