@@ -28,9 +28,13 @@ int main() {
   amqpwrapper.send_message("Hello World, this is Joyanta!! Test 2");
 
   // amqpwrapper.consume_message(messageCallback); //messageCallback is the
-  // callback implemented above). amqpwrapper.consume_message(); // consume the
-  // message. amqpwrapper.consume_message(ACK); //consume and ack the message.
-  // (i.e. channel->ack).
+  // callback implemented above).
+
+  // amqpwrapper.consume_message(); // consume the message.
+
+  // amqpwrapper.consume_message(ACK); //consume and ack the message.(i.e.
+  // channel->ack).
+
   amqpwrapper.consume_message(
       REJECT); // consume and reject the message. (i.e. channel->reject).
   ev_run(loop, 0);
