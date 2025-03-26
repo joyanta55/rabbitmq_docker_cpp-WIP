@@ -1,5 +1,7 @@
-load("@io_bazel_rules_docker//container:container.bzl", "container_image", "container_load", "container_pull")
 load("@rules_foreign_cc//foreign_cc:defs.bzl", "cmake", "make")
+load("@rules_oci//oci:defs.bzl", "oci_image", "oci_load")
+load("@rules_cc//cc:defs.bzl", "cc_binary")
+load("@rules_pkg//pkg:tar.bzl", "pkg_tar")
 
 make(
     name = "amq",
@@ -28,26 +30,23 @@ cc_binary(
     deps = [":amqp_lib"],
 )
 
-container_image(
-    name = "amqp_image_ubuntu_cpp",
-    base = "@ubuntu_base_image//image",
-    directory = "/tmp",
-    entrypoint = [
-        "/bin/sh",
-        "-c",
-        "/tmp/amqp",
-    ],
-    files = [":amqp"],
+
+pkg_tar(
+    name = "tar",
+    srcs = [":amqp"],
 )
 
-container_image(
-    name = "amqp_image_centos_cpp",
-    base = "@centos_base_image//image",
-    directory = "/tmp",
-    entrypoint = [
-        "/bin/sh",
-        "-c",
-        "/tmp/amqp",
-    ],
-    files = [":amqp"],
+oci_image(
+    name = "image",
+    base = "@docker_lib_ubuntu",
+    tars = [":tar"],
+    entrypoint = ["/amqp"],
+)
+
+# Use with 'bazel run' to load the oci image into a container runtime.
+# The image is designated using `repo_tags` attribute.
+oci_load(
+    name = "image_load",
+    image = ":image",
+    repo_tags = ["amqp_j:latest"],
 )

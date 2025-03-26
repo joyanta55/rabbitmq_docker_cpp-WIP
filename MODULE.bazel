@@ -1,11 +1,22 @@
-bazel_dep(name = "rules_proto_grpc_cpp", version = "5.0.0")
-# bazel_dep(name = "toolchains_protoc", version = "0.3.1")
+bazel_dep(name = "rules_cc", version = "0.0.9")
+bazel_dep(name = "rules_foreign_cc", version = "0.12.0")
+bazel_dep(name = "rules_pkg", version = "0.10.1")  # Use the latest stable version
 
-# Prevent version skew by matching protoc version to protobuf version, as C++ is the only lang that
-# has no cross-version runtime guarantee:
-# https://protobuf.dev/support/cross-version-runtime-guarantee/#cpp
-#protoc = use_extension("@toolchains_protoc//protoc:extensions.bzl", "protoc")
-#protoc.toolchain(
-#    google_protobuf = "com_google_protobuf",
-#    version = "v27.1",
-#)
+
+bazel_dep(name = "rules_oci", version = "2.2.3")
+# For testing, we also recommend https://registry.bazel.build/modules/container_structure_test
+
+oci = use_extension("@rules_oci//oci:extensions.bzl", "oci")
+
+# Declare external images you need to pull, for example: 
+oci.pull(
+    name = "docker_lib_ubuntu",
+    image = "docker.io/library/ubuntu",
+    platforms = [
+        "linux/arm64/v8",
+        "linux/amd64",
+    ],
+    tag = "rolling",
+)
+# Expose the base image
+use_repo(oci, "docker_lib_ubuntu","docker_lib_ubuntu_linux_amd64","docker_lib_ubuntu_linux_arm64_v8")
