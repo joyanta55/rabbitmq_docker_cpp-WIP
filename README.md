@@ -47,11 +47,10 @@ All it needs to run is to run the following command
 bazel run //src/cpp:image
 ```
 
-This would create a docker image, so you can see that by the `docker images` command. For the base docker image, I choose ubuntu 20.04. This can be modified at the `WORKSPACE` file. To create centos based amqp docker image  
+This would create a docker image, so you can see that by the `docker images` command. For the base docker image, I choose ubuntu 20.04. This can be modified at the `WORKSPACE` file. To create ubuntu based amqp docker image  
 ```
-bazel run bazel run //src/cpp:image_load
+bazel run //src/cpp:image_load
 ```
-The centos version used is 6.6. Again this can be changed at `WORKSPACE` file.
 
 To see the created images
 ```
