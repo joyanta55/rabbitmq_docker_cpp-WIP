@@ -61,7 +61,7 @@ docker images
 
 In my case I see the follwing docker image, when I type `docker images` in my machine.
 ```
-bazel/src/cpp   amqp_image_ubuntu_cpp   f5562587940b
+bazel/src/cpp   amqp_j   f5562587940b
 ```
 
 To run the docker image, 
